@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Herramientas de IA - Gamer</title>
+  <style>
+    /* ----- Estilo Gamer ----- */
+    :root {
+      --bg-dark: #0a0a0f;
+      --primary: #8a2be2;
+      --secondary: #00ffe7;
+      --text-light: #f0f0f0;
+      --card-bg: #161623;
+      --danger: #ff0055;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      font-size: 2.5rem;
+      color: var(--secondary);
+      text-shadow: 0 0 15px var(--secondary), 0 0 30px var(--primary);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #1e1e2f;
+      color: var(--text-light);
+    }
+
+    button {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border: none;
+      padding: 12px 20px;
+      margin-top: 15px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--secondary);
+    }
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .filtros button {
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .herramienta {
+      background: #1e1e2f;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 10px 0;
+      box-shadow: 0 0 10px rgba(0,255,231,0.3);
+      transition: 0.3s;
+    }
+
+    .herramienta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px var(--secondary);
+    }
+
+    .herramienta h3 {
+      margin: 0;
+      color: var(--secondary);
+    }
+
+    .herramienta p {
+      margin: 5px 0;
+    }
+
+    .herramienta a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .herramienta a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚡ Mis Herramientas de IA ⚡</h1>
+  <div class="container">
+
+    <!-- Añadir Nueva Herramienta -->
+    <div class="card">
+      <h2>Añadir Nueva Herramienta</h2>
+      <label>Nombre de la Herramienta</label>
+      <input type="text" id="nombre" placeholder="Ej: ChatGPT">
+
+      <label>Categoría</label>
+      <select id="categoria">
+        <option value="Texto">Texto</option>
+        <option value="Imagen">Imagen</option>
+        <option value="Audio">Audio</option>
+        <option value="Programación">Programación</option>
+        <option value="Productividad">Productividad</option>
+        <option value="Análisis de Datos">Análisis de Datos</option>
+        <option value="Educación">Educación</option>
+        <option value="Video">Video</option>
+        <option value="GPTs">GPTs</option>
+        <option value="Otros">Otros</option>
+      </select>
+
+      <label>Descripción Breve</label>
+      <textarea id="descripcion" rows="3" placeholder="Ej: Un modelo de lenguaje grande para conversaciones."></textarea>
+
+      <label>Enlace (URL)</label>
+      <input type="url" id="url" placeholder="Ej: https://chat.openai.com/">
+
+      <button onclick="agregarHerramienta()">Añadir Herramienta</button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card">
+      <h2>Filtrar por Categoría</h2>
+      <div class="filtros">
+        <button onclick="mostrarHerramientas('Todos')">Todos</button>
+        <button onclick="mostrarHerramientas('Texto')">Texto</button>
+        <button onclick="mostrarHerramientas('Imagen')">Imagen</button>
+        <button onclick="mostrarHerramientas('Audio')">Audio</button>
+        <button onclick="mostrarHerramientas('Programación')">Programación</button>
+        <button onclick="mostrarHerramientas('Productividad')">Productividad</button>
+        <button onclick="mostrarHerramientas('Análisis de Datos')">Análisis de Datos</button>
+        <button onclick="mostrarHerramientas('Educación')">Educación</button>
+        <button onclick="mostrarHerramientas('Video')">Video</button>
+        <button onclick="mostrarHerramientas('GPTs')">GPTs</button>
+        <button onclick="mostrarHerramientas('Otros')">Otros</button>
+      </div>
+    </div>
+
+    <!-- Mis Herramientas -->
+    <div class="card">
+      <h2>Mis Herramientas</h2>
+      <div id="listaHerramientas">
+        <p>Aún no has añadido ninguna herramienta. ¡Empieza añadiendo una arriba!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let herramientas = JSON.parse(localStorage.getItem("herramientas")) || [];
+
+    function agregarHerramienta() {
+      const nombre = document.getElementById("nombre").value;
+      const categoria = document.getElementById("categoria").value;
+      const descripcion = document.getElementById("descripcion").value;
+      const url = document.getElementById("url").value;
+
+      if (!nombre || !descripcion || !url) {
+        alert("Por favor completa todos los campos.");
+        return;
+      }
+
+      const herramienta = { nombre, categoria, descripcion, url };
+      herramientas.push(herramienta);
+      localStorage.setItem("herramientas", JSON.stringify(herramientas));
+
+      mostrarHerramientas("Todos");
+
+      document.getElementById("nombre").value = "";
+      document.getElementById("descripcion").value = "";
+      document.getElementById("url").value = "";
+    }
+
+    function mostrarHerramientas(filtro) {
+      const lista = document.getElementById("listaHerramientas");
+      lista.innerHTML = "";
+
+      const filtradas = filtro === "Todos" ? herramientas : herramientas.filter(h => h.categoria === filtro);
+
+      if (filtradas.length === 0) {
+        lista.innerHTML = "<p>No hay herramientas en esta categoría.</p>";
+        return;
+      }
+
+      filtradas.forEach(h => {
+        const div = document.createElement("div");
+        div.classList.add("herramienta");
+        div.innerHTML = `
+          <h3>${h.nombre}</h3>
+          <p><strong>Categoría:</strong> ${h.categoria}</p>
+          <p>${h.descripcion}</p>
+          <a href="${h.url}" target="_blank">🔗 Ir a la herramienta</a>
+        `;
+        lista.appendChild(div);
+      });
+    }
+
+    // Mostrar herramientas guardadas al cargar
+    window.onload = () => mostrarHerramientas("Todos");
+  </script>
+</body>
+</html>
